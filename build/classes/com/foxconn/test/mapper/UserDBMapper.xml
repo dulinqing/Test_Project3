@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="universal">
+
+	<resultMap type="com.foxconn.test.model.UserDB" id="userdbmap">
+		<id column="USER_ID" property="id" jdbcType="INTEGER"/>
+		<result column="USER_NAME" property="nameString" jdbcType="VARCHAR"/>
+		<result column="USER_PASSWORD" property="passwordString" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<insert id="add" parameterType="com.foxconn.test.model.UserDB">
+		INSERT INTO USER_T ( USER_NAME, USER_PASSWORD) VALUES (#{nameString},#{passwordString});
+	</insert>
+
+	<update id="update" parameterType="com.foxconn.test.model.UserDB" >
+		UPDATE USER_T SET USER_NAME=#{nameString} ,USER_PASSWORD=#{passwordString} WHERE USER_ID=#{id}
+	
+	</update>
+	<delete id="delete" parameterType="com.foxconn.test.model.UserDB" >
+		DELETE FROM USER_T  WHERE USER_ID=#{id}
+	
+	</delete>
+	<select id="select" resultMap="userdbmap">
+	
+		SELECT USER_ID,USER_NAME,USER_PASSWORD FROM USER_T;
+	
+	</select>
+	
+	<select id="selectByPage" resultMap="userdbmap" parameterType="java.util.Map">
+	
+		SELECT USER_ID,USER_NAME,USER_PASSWORD FROM USER_T LIMIT #{start},#{end};
+	
+	</select>
+
+</mapper>

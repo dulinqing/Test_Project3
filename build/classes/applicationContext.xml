@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+    
+    
+	<!--<context:annotation-config />  -->
+	<!--定义扫描器  -->
+	<context:component-scan base-package="com.foxconn.test.controller"></context:component-scan>
+	
+	<context:component-scan base-package="com.foxconn.test.serviceimpl"></context:component-scan> 
+	<context:component-scan base-package="com.foxconn.test.daoimpl"></context:component-scan>
+ 	<import resource="" />
+	<!-- 数据库相关配置dataSource -->
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		   <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+		   <property name="url" value="jdbc:mysql://10.248.175.221:3306/TestDB?characterEncoding=UTF-8&amp;useSSL=false"/>
+		   <property name="username" value="root"/>
+		   <property name="password" value="Foxconn66."/>
+	</bean>
+	
+	<!-- <bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		   <property name="driverClassName" value="${jdbc.driver}"/>
+		   <property name="url" value="${jdbc.url}"/>
+		   <property name="username" value="${jdbc.user}"/>
+		   <property name="password" value="${jdbc.password}"/>
+	</bean> -->
+	
+	<bean id="userjdbctemplate" 
+      class="com.foxconn.test.daoimpl.UserJDBCTemplate">
+      <property name="dataSource"  ref="dataSource" />    
+   </bean>
+   
+  <!--  <mvc:resources location="/,classpath:/META-INF/publicResources/"
+		mapping="/resources/**" />
+	<bean id="contentNegotiationManager"
+		class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+		<property name="mediaTypes">
+			<value>
+				html=text/html
+				json=application/json
+			</value>
+		</property>
+		<property name="defaultContentType" value="text/html" />
+	</bean> -->
+
+	<!-- 配置mvc注解驱动 -->
+	<mvc:annotation-driven />
+	
+	<!-- <mvc:resources location="/,classpath:/META-INF/publicResources/"
+		mapping="/resources/**" />
+	<bean id="contentNegotiationManager"
+		class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+		<property name="mediaTypes">
+			<value>
+				html=text/html
+				json=application/json
+			</value>
+		</property>
+		<property name="defaultContentType" value="text/html" />
+	</bean>
+	<bean
+		class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+		<property name="order" value="0" />
+		<property name="contentNegotiationManager" ref="contentNegotiationManager" />
+ 
+		<property name="viewResolvers">
+			<list>
+				<bean
+					class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+					<property name="viewClass"
+						value="org.springframework.web.servlet.view.JstlView" />
+					<property name="prefix" value="/WEB-INF/view/" />
+					<property name="suffix" value=".jsp"/>
+					
+				</bean>
+			</list>
+		</property>
+		<property name="defaultViews">
+			<list>
+				<bean class="com.alibaba.fastjson.support.spring.FastJsonJsonView">
+					<property name="charset" value="UTF-8" />
+				</bean>
+			</list>
+		</property>
+	</bean> -->
+</beans>

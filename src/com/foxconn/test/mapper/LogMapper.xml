@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="logToDB">
+
+	<resultMap type="com.foxconn.test.model.Log" id="logmap">
+		<id column="ID" property="id" jdbcType="INTEGER"/> 
+		<result column="MAC_ADDR" property="mac_addr" jdbcType="VARCHAR"/>
+		<result column="CHANNEL_ID" property="channel_id" jdbcType="INTEGER" />
+		<result column="IP" property="ip" jdbcType="VARCHAR"/>
+		<result column="PORT" property="port" jdbcType="INTEGER"/>
+		<result column="OPEATION" property="operation" jdbcType="VARCHAR"/>
+		<result column="MESSAGE" property="massage" jdbcType="VARCHAR"/>
+		<result column="DEL_FLAG" property="del_flag" jdbcType="TINYINT"/>
+		<result column="CREATE_BY" property="create_by" jdbcType="VARCHAR"/>
+		<result column="CREATE_DATE" property="create_date" jdbcType="TIMESTAMP"/>
+	</resultMap>
+	
+	<insert id="insert" parameterType="com.foxconn.test.model.Log">
+		INSERT INTO DOOR_CTRL_LOG (MAC_ADDR,IP,CHANNEL_ID,PORT,OPEATION,MESSAGE,DEL_FLAG,CREATE_BY,CREATE_DATE) 
+		VALUES (#{mac_addr},#{ip},#{channel_id},#{port},#{operation},#{message},#{del_flag},#{create_by},#{create_date});
+	</insert>
+
+	<!-- <update id="update" parameterType="com.foxconn.test.model.UserDB" >
+		UPDATE USER_T SET USER_NAME=#{nameString} ,USER_PASSWORD=#{passwordString} WHERE USER_ID=#{id}
+	
+	</update>
+	<delete id="delete" parameterType="com.foxconn.test.model.UserDB" >
+		DELETE FROM USER_T  WHERE USER_ID=#{id}
+	
+	</delete>
+	<select id="select" resultMap="userdbmap">
+	
+		SELECT USER_ID,USER_NAME,USER_PASSWORD FROM USER_T;
+	
+	</select>
+	
+	<select id="selectByPage" resultMap="userdbmap" parameterType="java.util.Map">
+	
+		SELECT USER_ID,USER_NAME,USER_PASSWORD FROM USER_T LIMIT #{start},#{end};
+	
+	</select> -->
+
+</mapper>
